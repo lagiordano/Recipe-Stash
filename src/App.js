@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
+import { Route, Switch } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import Recipes from './Components/Recipes';
+import AddNewRecipe from './Components/AddNewRecipe';
+import Inspiration from './Components/Inspiration';
+import NavBar from './Components/NavBar';
+import Home from './Components/Home';
 
 function App() {
+
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect( () => {
+    fetch("http://localhost:6001/recipes")
+    .then(r => r.json())
+    .then( data => {
+      console.log(data);
+      setRecipes(data)
+    })
+    .catch(() => alert("There's been an error loading your recipe information"));
+  }, [])
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <Switch>
+        <Route path="/recipes">
+          <Recipes recipes={recipes}/>
+        </Route>
+        <Route path="/new_recipe">
+          <AddNewRecipe />
+        </Route>
+        {/* <Route path="/meal_inspiration">
+          <Inspiration />
+        </Route> */}
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }
