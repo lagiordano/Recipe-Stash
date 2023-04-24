@@ -1,16 +1,41 @@
-import React from "react";
-import RecipeList from "./RecipeList";
+import React, {useState} from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import RecipeSorter from "./RecipeSorter";
+import RecipeItem from "./RecipeItem";
+import RecipeDetails from "./RecipeDetails";
 
-function Recipes ({recipes}) {
+function Recipes ({recipes, setRecipes}) {
+
+    const [search, setSearch] = useState("");
+    const [select, setSelect] = useState("all");
+    
+    
+    function handleCategoryChange (e) {
+        setSelect(e.target.value);
+    }
+
+    const filteredRecipes = recipes.filter( recipe => {
+        if (select === "all") return true;
+
+        return recipe.category === select;
+    })
+
+    const recipesToDisplay = filteredRecipes.filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()));
+   
+    
 
     return (
-        <div>
-            <RecipeSorter />
-            <RecipeList recipes={recipes}/>
-        </div>
+        <Container >
+            <RecipeSorter setSearch={setSearch} setSelect={setSelect} onCategoryChange={handleCategoryChange} />
+            <Row xs={1} sm={2} md={3} lg={3} xl={4} className="g-3">
+                {recipesToDisplay.map(recipe => <RecipeItem key={recipe.id} name={recipe.name} image={recipe.image} url={recipe.url} madeCount={recipe.madeCount} id={recipe.id} /> )};
+            </Row>
+            
+        </Container>
     );
 }
 
 
 export default Recipes;
+
