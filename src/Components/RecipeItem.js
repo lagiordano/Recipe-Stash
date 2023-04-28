@@ -16,12 +16,14 @@ function RecipeItem ({name, image, id}) {
 
     return (
         <Col >
-            <Card className="h-100" >
-                <Card.Img variant="top" src={image || recipePlaceholder} alt={name} style={imageStyles} />
-                <Card.Body>
-                    <Card.Title><Link to={`/recipes/${id}`}>{name}</Link></Card.Title>
-                </Card.Body>
-            </Card>
+            <Link to={`/recipes/${id}`} className="text-decoration-none">
+                <Card className="h-100" id="recipe-card" >
+                    <Card.Img variant="top" src={image || recipePlaceholder} alt={name} style={imageStyles} />
+                    <Card.Body className="d-flex align-items-center justify-content-center">
+                        <Card.Title className="text-dark"> {name}</Card.Title>
+                    </Card.Body>
+                </Card>
+            </Link>
         </Col>
     );
 }

@@ -1,38 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  box-sizing: border-box;
+  background-image: url(onions-799948_1280.jpg);
+  font-family: 'Dosis', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+
+
+#nav-style {
+  background-color: #F9F6EE;
+  font-family:'Dosis', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+#nav-style a {
+  color: black;
+  text-decoration: none;
 }
 
-.App-link {
-  color: #61dafb;
+#nav-style a.active {
+  text-decoration: underline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+#add-recipe {
+  background-color: #F9F6EE;
+}
+
+#inspo-meal {
+  background-color: #F9F6EE;
+}
+
+#recipe-card {
+  background-color: #F9F6EE;
+}
+
+.search-form {
+  background-color: #F9F6EE;
+}
+
+.details {
+  background-color: #F9F6EE;
+}
+
+
+
+
+
+.home {
+  max-height:fit-content;
+ 
+  color:black;
+  font-family: 'Dosis', sans-serif;
+}
+
+.welcome-message a {
+  color:black;
+  font-family: 'Dosis', sans-serif;
+}
+
+.welcome-message {
+  background-color:#F9F6EE;
 }

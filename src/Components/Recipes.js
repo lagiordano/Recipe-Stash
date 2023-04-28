@@ -26,14 +26,17 @@ function Recipes ({recipes, setRecipes}) {
     
 
     return (
-        <Container >
-            <RecipeSorter setSearch={setSearch} setSelect={setSelect} onCategoryChange={handleCategoryChange} />
-            <Row xs={1} sm={2} md={3} lg={3} xl={4} className="g-3">
-                {recipesToDisplay.map(recipe => <RecipeItem key={recipe.id} name={recipe.name} image={recipe.image} url={recipe.url} madeCount={recipe.madeCount} id={recipe.id} /> )};
-            </Row>
-            
-        </Container>
-    );
+        <React.Fragment>
+            <Container className="d-flex justify-content-center">
+                    <RecipeSorter setSearch={setSearch} setSelect={setSelect} onCategoryChange={handleCategoryChange} />
+            </Container>
+            <Container>
+                    <Row xs={1} sm={2} md={3} lg={3} xl={4} className="g-4 mx-2">
+                        {recipesToDisplay.map(recipe => <RecipeItem key={recipe.id} name={recipe.name} image={recipe.image} url={recipe.url} madeCount={recipe.madeCount} id={recipe.id} /> )}
+                    </Row>
+            </Container>
+        </React.Fragment>
+    )
 }
 
 

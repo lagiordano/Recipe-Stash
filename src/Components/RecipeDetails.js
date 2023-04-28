@@ -8,11 +8,13 @@ import Form from "react-bootstrap/Form";
 import recipePlaceholder from "../recipePlaceholder.jpeg";
 import InputGroup from "react-bootstrap/InputGroup";
 import { v4 as uuidv4 } from 'uuid';
+import { ButtonGroup } from "react-bootstrap";
 
 
 
-function RecipeDetails () {
+function RecipeDetails ({deleteRender, setDeleteRender}) {
 
+    
 
     const params = useParams()
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ function RecipeDetails () {
     const [made, setMade] = useState("");
     const [commentsArr, setCommentsArr] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const [disabled, setDisabled] = useState(false);
 
 
     useEffect( () => {
@@ -32,6 +35,14 @@ function RecipeDetails () {
         })
         .catch(() => alert("There's been an error loading your recipe information"));
     }, [])
+
+    const madeCountDisplay = (
+        <div className="d-flex justify-content-center align-items-center p-1 p-md-2 p-lg-3">
+            {(made > 0) ? <span class="fs-5">Made {made} time{(made === 1) ? "" : "s"}:&nbsp;</span> : <span class="fs-5">Not made yet:&nbsp;</span> }
+            <Button size="sm"variant="outline-dark" onClick={handleIncreaseClick} className="m-1">+</Button><Button variant="outline-dark" size="sm" onClick={handleDecreaseClick} className="m-1">-</Button>
+        </div>
+    );
+    
 
     function handleIncreaseClick () {
         setMade(made => made + 1)
@@ -48,7 +59,12 @@ function RecipeDetails () {
     }
 
    function handleDecreaseClick () {
-        setMade(made => made - 1)
+        if (made === 0) {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+            setMade(made => made - 1);
+        }
         fetch(`http://localhost:6001/recipes/${params.id}`, {
             method: "PATCH",
             headers: {
@@ -86,50 +102,50 @@ function RecipeDetails () {
             method: "DELETE"
         })
         .then(() => {
+            setDeleteRender(!deleteRender)
             navigate("/");
         })
         .catch(() => alert("Error: Could not process request"));
    }
+
+  
    
 
     return (
         <Container>
-            <Row>
-                <Col sm={12} md={6} lg={5}>
-                    <img src={recipe.image || recipePlaceholder} alt={recipe.name} style={{width: "100%", height: "50vh"}}/>
-                </Col>
-                <Col sm={12} md={4} lg={5}>
-                    <h2>{recipe.name}</h2>
-                    <h4><a href={recipe.url} target="_blank" >Go to recipe</a></h4>
-                    {(made > 0) ? <span>Made {made} times!</span> : <span>You've not made this yet</span>}
-                    <Button onClick={handleIncreaseClick}>+</Button><Button onClick={handleDecreaseClick} >-</Button>
-                    <p>Category: {recipe.category}</p>
-                </Col>
-            </Row>
-            
-            <Row>
-                <Col>
-                    <h5>Your comments:</h5>
-                    <ul>
-                        {commentsArr.map(comment => <li key={uuidv4()}>{comment}</li>)}
-                    </ul>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Form onSubmit={handleSubmit}>
-                        <InputGroup>
-                            <Form.Control type="text" placeholder="Add new comment here..." value={newComment} onChange={handleCommentChange}/>
-                            <Button type="submit" variant="primary" >Add Comment</Button>
-                        </InputGroup>
-                    </Form>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Button variant="primary" onClick={handleDeleteRecipe} >Delete Recipe</Button>
-                </Col>
-            </Row>
+            <div class="border rounded my-4 mx-2 mx-md-4 my-md-5 m-lg-5  details ">
+                <Row className=" d-flex justify-content-center align-items-center">
+                    <Col sm={12} md={6} lg={5} >
+                        <img src={recipe.image || recipePlaceholder} alt={recipe.name} style={{width: "95%", height: "50vh"}} className="m-2 m-md-4 m-lg-5 border rounded"/>
+                    </Col>
+                    <Col sm={12} md={6} lg={7} className="d-flex align-items-center justify-content-center">
+                        <div className="p1 p-md-2">
+                            <h1 class="text-capitalize p-1 p-md-2">{recipe.name}</h1>
+                            <h4 class="p-1 p-md-2"><a href={recipe.url} target="_blank" className="text-dark" >Go to Recipe</a></h4>
+                            {madeCountDisplay}
+                            <Button className="m-3 m-md-2" variant="outline-dark" onClick={handleDeleteRecipe} >Delete Recipe</Button>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={12}>
+                        <Form onSubmit={handleSubmit} className="m-2 mx-md-4 mx-lg-5">
+                            <InputGroup >
+                                <Form.Control type="text" placeholder="Add new comment here..." value={newComment} onChange={handleCommentChange} className="details"/>
+                                <Button type="submit" variant="outline-dark" >Add</Button>
+                            </InputGroup>
+                        </Form>
+                    </Col>
+                </Row>
+                <Row className="mx-2 mx-md-4 mx-lg-5 mb-lg-4 details">
+                    <Col sm={12} className="text-start">
+                        <h4 className="m-2">Comments:</h4>
+                        <ul >
+                            {commentsArr.map(comment => <li key={uuidv4()}>{comment}</li>)}
+                        </ul>
+                    </Col>
+                </Row>
+            </div>
         </Container>
 
 

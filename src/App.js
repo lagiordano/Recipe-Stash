@@ -13,6 +13,7 @@ import RecipeDetails from './Components/RecipeDetails';
 function App() {
 
   const [recipes, setRecipes] = useState([]);
+  const [deleteRender, setDeleteRender] = useState(true);
 
   useEffect( () => {
     fetch("http://localhost:6001/recipes")
@@ -22,7 +23,7 @@ function App() {
       setRecipes(data)
     })
     .catch(() => alert("There's been an error loading your recipe information"));
-  }, [])
+  }, [deleteRender])
 
   
 
@@ -32,11 +33,11 @@ function App() {
         <Router>
           <NavBar />
           <Routes>
+            <Route exact path="/" element={<Home />} />
             <Route exact path="/recipes" element={<Recipes recipes={recipes} setRecipes={setRecipes} />} />
-            <Route path="/recipes/:id" element={<RecipeDetails />} />
+            <Route path="/recipes/:id" element={<RecipeDetails deleteRender={deleteRender} setDeleteRender={setDeleteRender} />} />
             <Route exact path="/new_recipe" element={<AddNewRecipe />} />
             <Route exact path="/meal_inspiration" element={ <Inspiration />} />
-            <Route exact path="/" element={<Home />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
