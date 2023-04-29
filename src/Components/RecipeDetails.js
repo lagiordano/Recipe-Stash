@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import recipePlaceholder from "../recipePlaceholder.jpeg";
+import recipePlaceholder from "../images/recipePlaceholder.jpeg";
 import InputGroup from "react-bootstrap/InputGroup";
 import { v4 as uuidv4 } from 'uuid';
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import recipePlaceholder from "../recipePlaceholder.jpeg";
+import recipePlaceholder from "../images/recipePlaceholder.jpeg";
 import  Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 

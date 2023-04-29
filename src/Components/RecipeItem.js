@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import recipePlaceholder from "../recipePlaceholder.jpeg";
+import recipePlaceholder from "../images/recipePlaceholder.jpeg";
 
 function RecipeItem ({name, image, id}) {
 
