@@ -8,11 +8,10 @@ import Form from "react-bootstrap/Form";
 import recipePlaceholder from "../recipePlaceholder.jpeg";
 import InputGroup from "react-bootstrap/InputGroup";
 import { v4 as uuidv4 } from 'uuid';
-import { ButtonGroup } from "react-bootstrap";
 
 
 
-function RecipeDetails ({deleteRender, setDeleteRender}) {
+function RecipeDetails ({rerender, setRerender}) {
 
     
 
@@ -34,7 +33,7 @@ function RecipeDetails ({deleteRender, setDeleteRender}) {
         setCommentsArr(data.comments);
         })
         .catch(() => alert("There's been an error loading your recipe information"));
-    }, [])
+    }, [params.id])
 
     const madeCountDisplay = (
         <div className="d-flex justify-content-center align-items-center p-1 p-md-2 p-lg-3">
@@ -102,8 +101,8 @@ function RecipeDetails ({deleteRender, setDeleteRender}) {
             method: "DELETE"
         })
         .then(() => {
-            setDeleteRender(!deleteRender)
-            navigate("/");
+            setRerender(!rerender)
+            navigate("/recipes");
         })
         .catch(() => alert("Error: Could not process request"));
    }
@@ -121,7 +120,7 @@ function RecipeDetails ({deleteRender, setDeleteRender}) {
                     <Col sm={12} md={6} lg={7} className="d-flex align-items-center justify-content-center">
                         <div className="p1 p-md-2">
                             <h1 class="text-capitalize p-1 p-md-2">{recipe.name}</h1>
-                            <h4 class="p-1 p-md-2"><a href={recipe.url} target="_blank" className="text-dark" >Go to Recipe</a></h4>
+                            <h4 class="p-1 p-md-2"><a href={recipe.url} target="_blank" rel="noreferrer" className="text-dark" >Go to Recipe</a></h4>
                             {madeCountDisplay}
                             <Button className="m-3 m-md-2" variant="outline-dark" onClick={handleDeleteRecipe} >Delete Recipe</Button>
                         </div>

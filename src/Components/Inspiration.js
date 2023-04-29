@@ -6,7 +6,7 @@ import recipePlaceholder from "../recipePlaceholder.jpeg";
 import  Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
-function Inspiration () {
+function Inspiration ({rerender, setRerender}) {
 
     const navigate = useNavigate();
 
@@ -52,7 +52,8 @@ function Inspiration () {
         })
         .then(r => r.json())
         .then(data => {
-            navigate(`/${data.id}`)
+            setRerender(!rerender);
+            navigate(`/recipes/${data.id}`);
         })
         .catch( () => alert("Error: Unable to process reuqest"))
         
@@ -69,7 +70,7 @@ function Inspiration () {
                 <Col sm={12} md={6} className="d-flex align-items-center justify-content-center">
                     <div className="mb-3 mx-2 ">
                         <h1>{inspoMeal.name}</h1>
-                        <h4 className="mt-3"><a href={inspoMeal.url} target="_blank" className=" text-dark">Go to Recipe</a></h4>
+                        <h4 class="mt-3"><a href={inspoMeal.url} target="_blank" rel="noreferrer" className=" text-dark">Go to Recipe</a></h4>
                         <Button className="m-2 m-md-3 m-lg-4" size="sm" variant="outline-dark" onClick={handleAddClick} >Add to Recipes</Button><br />
                         <Button variant="outline-dark" size="sm" onClick={() => setNewInspo(newInspo => !newInspo)}>Get New Recipe</Button>
                     </div >

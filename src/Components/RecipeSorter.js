@@ -1,16 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 
-function RecipeSorter ({setSearch, search, setSelect, select, onCategoryChange}) {
-
-    
+function RecipeSorter ({setSearch, search, select, onCategoryChange}) {
 
     
-
     function handleSearchChange (e) {
         setSearch(e.target.value);
     }

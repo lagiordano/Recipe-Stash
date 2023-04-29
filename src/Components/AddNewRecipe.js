@@ -5,9 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import recipePlaceholer from "../recipePlaceholder.jpeg";
 
-function AddNewRecipe () {
+function AddNewRecipe ({setRerender, rerender}) {
 
     const navigate = useNavigate();
 
@@ -20,12 +19,10 @@ function AddNewRecipe () {
         comments: []
 
     })
-
    
     function handleFormChange (e) {
         const name=e.target.name;
         const value= e.target.value;
-        console.log(value)
 
         setNewRecipe({
             ...newRecipe,
@@ -37,7 +34,6 @@ function AddNewRecipe () {
 
     function handleSubmit (e) {
         e.preventDefault();
-        console.log(newRecipe);
         fetch("http://localhost:6001/recipes", {
             method: "POST",
             headers: {
@@ -56,7 +52,8 @@ function AddNewRecipe () {
                 comments: []
         
             });
-            navigate(`/${data.id}`)
+            setRerender(!rerender);
+            navigate(`/recipes/${data.id}`)
         })
         .catch(() => {
             alert("Sorry, there has been an error submitting this recipe");
@@ -65,7 +62,7 @@ function AddNewRecipe () {
 
 
     return (
-        <Container>
+        <Container className="d-flex justify-content-center">
             <Row className="w-100 d-flex justify-content-center">
                 <Col xs={12} md={10} lg={8} >
                     <Form onSubmit={handleSubmit} className="text-start  my-3 my-md-4 my-lg-5 p-3 p-md-3 p-lg-4 p-xl-5 border rounded" id="add-recipe">

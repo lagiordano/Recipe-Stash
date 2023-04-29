@@ -3,9 +3,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import RecipeSorter from "./RecipeSorter";
 import RecipeItem from "./RecipeItem";
-import RecipeDetails from "./RecipeDetails";
 
-function Recipes ({recipes, setRecipes}) {
+function Recipes ({recipes}) {
 
     const [search, setSearch] = useState("");
     const [select, setSelect] = useState("all");
@@ -28,9 +27,9 @@ function Recipes ({recipes, setRecipes}) {
     return (
         <React.Fragment>
             <Container className="d-flex justify-content-center">
-                    <RecipeSorter setSearch={setSearch} setSelect={setSelect} onCategoryChange={handleCategoryChange} />
+                    <RecipeSorter setSearch={setSearch} select={select} onCategoryChange={handleCategoryChange} />
             </Container>
-            <Container>
+            <Container className="mb-5">
                     <Row xs={1} sm={2} md={3} lg={3} xl={4} className="g-4 mx-2">
                         {recipesToDisplay.map(recipe => <RecipeItem key={recipe.id} name={recipe.name} image={recipe.image} url={recipe.url} madeCount={recipe.madeCount} id={recipe.id} /> )}
                     </Row>
