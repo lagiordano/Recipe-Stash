@@ -14,7 +14,6 @@ import Footer from './Components/Footer';
 function App() {
 
   const [recipes, setRecipes] = useState([]);
-  const [rerender, setRerender] = useState(true);
 
   useEffect( () => {
     fetch("http://localhost:6001/recipes")
@@ -23,13 +22,21 @@ function App() {
       setRecipes(data)
     })
     .catch(() => alert("There's been an error loading your recipe information"));
-  }, [rerender])
+  }, [])
 
   useEffect( () => {
       document.title = "Recipe Stash | Home";
   }, [])
   
+  function handleDeleteClick (deletedRecipe) {
+    const updatedRecipes = recipes.filter(recipe => recipe.id !== deletedRecipe.id);
+    setRecipes(updatedRecipes);
+  }
 
+  function handleAddRecipe (addedRecipe) {
+    const updatedRecipes = [...recipes, addedRecipe];
+    setRecipes(updatedRecipes);
+  }
 
   return (
     <div className="App">
@@ -38,9 +45,9 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/recipes" element={<Recipes recipes={recipes} setRecipes={setRecipes} />} />
-              <Route path="/recipes/:id" element={<RecipeDetails rerender={rerender} setRerender={setRerender} />} />
-              <Route exact path="/new_recipe" element={<AddNewRecipe rerender={rerender} setRerender={setRerender} />} />
-              <Route exact path="/meal_inspiration" element={ <Inspiration rerender={rerender} setRerender={setRerender} />} />
+              <Route path="/recipes/:id" element={<RecipeDetails onDeleteClick={handleDeleteClick}/>} />
+              <Route exact path="/new_recipe" element={<AddNewRecipe onAddRecipe={handleAddRecipe} />} />
+              <Route exact path="/meal_inspiration" element={ <Inspiration onAddInspoMeal={handleAddRecipe} />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
             <Footer />

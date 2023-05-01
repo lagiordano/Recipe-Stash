@@ -6,7 +6,7 @@ import recipePlaceholder from "../images/recipePlaceholder.jpeg";
 import  Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
-function Inspiration ({rerender, setRerender}) {
+function Inspiration ({onAddInspoMeal}) {
 
     useEffect( () => {
         document.title = "Recipe Stash | Meal Inspo";
@@ -59,7 +59,7 @@ function Inspiration ({rerender, setRerender}) {
         })
         .then(r => r.json())
         .then(data => {
-            setRerender(!rerender);
+            onAddInspoMeal(inspoMeal);
             navigate(`/recipes/${data.id}`);
         })
         .catch( () => alert("Error: Unable to process reuqest"))

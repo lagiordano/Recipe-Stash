@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-function RecipeDetails ({rerender, setRerender}) {
+function RecipeDetails ({onDeleteClick}) {
 
     
 
@@ -101,7 +101,7 @@ function RecipeDetails ({rerender, setRerender}) {
             method: "DELETE"
         })
         .then(() => {
-            setRerender(!rerender)
+            onDeleteClick(recipe);
             navigate("/recipes");
         })
         .catch(() => alert("Error: Could not process request"));

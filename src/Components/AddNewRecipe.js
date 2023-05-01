@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function AddNewRecipe ({setRerender, rerender}) {
+function AddNewRecipe ({onAddRecipe}) {
 
     useEffect( () => {
         document.title = "Recipe Stash | Add Recipe";
@@ -56,7 +56,7 @@ function AddNewRecipe ({setRerender, rerender}) {
                 comments: []
         
             });
-            setRerender(!rerender);
+            onAddRecipe(newRecipe)
             navigate(`/recipes/${data.id}`)
         })
         .catch(() => {
