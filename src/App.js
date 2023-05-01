@@ -20,12 +20,14 @@ function App() {
     fetch("http://localhost:6001/recipes")
     .then(r => r.json())
     .then( data => {
-      console.log(data);
       setRecipes(data)
     })
     .catch(() => alert("There's been an error loading your recipe information"));
   }, [rerender])
 
+  useEffect( () => {
+      document.title = "Recipe Stash | Home";
+  }, [])
   
 
 

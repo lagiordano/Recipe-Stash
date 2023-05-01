@@ -8,6 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 function Inspiration ({rerender, setRerender}) {
 
+    useEffect( () => {
+        document.title = "Recipe Stash | Meal Inspo";
+    }, [])
+
+
     const navigate = useNavigate();
 
     const [newInspo, setNewInspo] = useState(true);
@@ -20,14 +25,12 @@ function Inspiration ({rerender, setRerender}) {
             comments: []
     });
 
-
-
     useEffect( () => {
         fetch("https://www.themealdb.com/api/json/v1/1/random.php")
         .then(r => r.json())
         .then(data => {
             if (data["meals"][0]["strSource"]) {
-                const mealCategory = (data["meals"][0]["strCategory"] === "Dessert" ? "Sweet" : "Savory");
+                const mealCategory = (data["meals"][0]["strCategory"] === "Dessert" ? "Sweet" : "Savoury");
                 setInspoMeal({
                     name: data["meals"][0]["strMeal"],
                     image: data["meals"][0]["strMealThumb"],
@@ -41,6 +44,10 @@ function Inspiration ({rerender, setRerender}) {
             }
         })
     }, [newInspo])
+
+
+
+    
 
     function handleAddClick () {
         fetch("http://localhost:6001/recipes", {
@@ -70,7 +77,7 @@ function Inspiration ({rerender, setRerender}) {
                 <Col sm={12} md={6} className="d-flex align-items-center justify-content-center">
                     <div className="mb-3 mx-2 ">
                         <h1>{inspoMeal.name}</h1>
-                        <h4 class="mt-3"><a href={inspoMeal.url} target="_blank" rel="noreferrer" className=" text-dark">Go to Recipe</a></h4>
+                        <h4 className="mt-3"><a href={inspoMeal.url} target="_blank" rel="noreferrer" className=" text-dark">Go to Recipe</a></h4>
                         <Button className="m-2 m-md-3 m-lg-4" size="sm" variant="outline-dark" onClick={handleAddClick} >Add to Recipes</Button><br />
                         <Button variant="outline-dark" size="sm" onClick={() => setNewInspo(newInspo => !newInspo)}>Get New Recipe</Button>
                     </div >

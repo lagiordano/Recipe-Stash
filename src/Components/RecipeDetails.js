@@ -37,7 +37,7 @@ function RecipeDetails ({rerender, setRerender}) {
 
     const madeCountDisplay = (
         <div className="d-flex justify-content-center align-items-center p-1 p-md-2 p-lg-3">
-            {(made > 0) ? <span class="fs-5">Made {made} time{(made === 1) ? "" : "s"}:&nbsp;</span> : <span class="fs-5">Not made yet:&nbsp;</span> }
+            {(made > 0) ? <span className="fs-5">Made {made} time{(made === 1) ? "" : "s"}:&nbsp;</span> : <span className="fs-5">Not made yet:&nbsp;</span> }
             <Button size="sm"variant="outline-dark" onClick={handleIncreaseClick} className="m-1">+</Button><Button variant="outline-dark" size="sm" onClick={handleDecreaseClick} className="m-1">-</Button>
         </div>
     );
@@ -112,15 +112,15 @@ function RecipeDetails ({rerender, setRerender}) {
 
     return (
         <Container>
-            <div class="border rounded my-4 mx-2 mx-md-4 my-md-5 m-lg-5  details ">
+            <div className="border rounded my-4 mx-2 mx-md-4 my-md-5 m-lg-5  details ">
                 <Row className=" d-flex justify-content-center align-items-center">
                     <Col sm={12} md={6} lg={5} >
-                        <img src={recipe.image || recipePlaceholder} alt={recipe.name} style={{width: "95%", height: "50vh"}} className="m-2 m-md-4 m-lg-5 border rounded"/>
+                        <img src={recipe.image || recipePlaceholder} alt={recipe.name} style={{width: "95%", height: "45vh"}} className="m-2 m-md-4 m-lg-5 border rounded"/>
                     </Col>
                     <Col sm={12} md={6} lg={7} className="d-flex align-items-center justify-content-center">
                         <div className="p1 p-md-2">
-                            <h1 class="text-capitalize p-1 p-md-2">{recipe.name}</h1>
-                            <h4 class="p-1 p-md-2"><a href={recipe.url} target="_blank" rel="noreferrer" className="text-dark" >Go to Recipe</a></h4>
+                            <h1 className="text-capitalize p-1 p-md-2">{recipe.name}</h1>
+                            <h4 className="p-1 p-md-2"><a href={recipe.url} target="_blank" rel="noreferrer" className="text-dark" >Go to Recipe</a></h4>
                             {madeCountDisplay}
                             <Button className="m-3 m-md-2" variant="outline-dark" onClick={handleDeleteRecipe} >Delete Recipe</Button>
                         </div>

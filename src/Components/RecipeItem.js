@@ -8,7 +8,7 @@ function RecipeItem ({name, image, id}) {
 
     
     const imageStyles = {
-        height: '30vh'
+        height: '25vh'
     }
 
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import RecipeSorter from "./RecipeSorter";
@@ -6,8 +6,14 @@ import RecipeItem from "./RecipeItem";
 
 function Recipes ({recipes}) {
 
+    useEffect( () => {
+        document.title = "Recipe Stash | Your Recipes";
+    }, [])
+
     const [search, setSearch] = useState("");
     const [select, setSelect] = useState("all");
+
+    
     
     
     function handleCategoryChange (e) {

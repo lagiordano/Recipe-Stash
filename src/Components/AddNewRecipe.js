@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -7,6 +7,10 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 function AddNewRecipe ({setRerender, rerender}) {
+
+    useEffect( () => {
+        document.title = "Recipe Stash | Add Recipe";
+    }, [])
 
     const navigate = useNavigate();
 
@@ -82,7 +86,7 @@ function AddNewRecipe ({setRerender, rerender}) {
                         </Form.Group>
                         <Form.Group name="category" value={newRecipe.category} required onChange={handleFormChange} className="mb-2">
                             <Form.Label>Category:&nbsp;&nbsp;</Form.Label>
-                            <Form.Check inline name="category" type="radio" value="Savory" label="Savory" />
+                            <Form.Check inline name="category" type="radio" value="Savoury" label="Savoury" />
                             <Form.Check inline name="category" type="radio" value="Sweet" label="Sweet" />
                         </Form.Group>
                         <Form.Group className="mb-3">

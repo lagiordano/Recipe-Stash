@@ -18,7 +18,7 @@ function RecipeSorter ({setSearch, search, select, onCategoryChange}) {
                     <FloatingLabel label="Category" className="my-3 my-lg-4 p-0">
                         <Form.Select onChange={onCategoryChange} value={select} className="w-100 search-form">
                             <option value="all" >All</option>
-                            <option value="Savory" >Savory</option>
+                            <option value="Savoury" >Savoury</option>
                             <option value="Sweet" >Sweet</option>
                         </Form.Select>
                     </FloatingLabel>
