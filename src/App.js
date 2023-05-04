@@ -14,6 +14,7 @@ import Footer from './Components/Footer';
 function App() {
 
   const [recipes, setRecipes] = useState([]);
+  const [showDeleted, setShowDeleted] = useState(false);
 
   useEffect( () => {
     fetch("http://localhost:6001/recipes")
@@ -43,12 +44,12 @@ function App() {
         <Router>
             <NavBar />
             <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/recipes" element={<Recipes recipes={recipes} setRecipes={setRecipes} />} />
-              <Route path="/recipes/:id" element={<RecipeDetails onDeleteClick={handleDeleteClick}/>} />
-              <Route exact path="/new_recipe" element={<AddNewRecipe onAddRecipe={handleAddRecipe} />} />
-              <Route exact path="/meal_inspiration" element={ <Inspiration onAddInspoMeal={handleAddRecipe} />} />
-              <Route path="*" element={<PageNotFound />} />
+              <Route exact path="/" element={<Home setShowDeleted={setShowDeleted} />} />
+              <Route exact path="/recipes" element={<Recipes recipes={recipes} setRecipes={setRecipes} showDeleted={showDeleted} setShowDeleted={setShowDeleted}/>} />
+              <Route path="/recipes/:id" element={<RecipeDetails onDeleteClick={handleDeleteClick} setShowDeleted={setShowDeleted}/>} />
+              <Route exact path="/new_recipe" element={<AddNewRecipe onAddRecipe={handleAddRecipe} setShowDeleted={setShowDeleted} />} />
+              <Route exact path="/meal_inspiration" element={ <Inspiration onAddInspoMeal={handleAddRecipe} setShowDeleted={setShowDeleted} />} />
+              <Route path="*" element={<PageNotFound setShowDeleted={setShowDeleted} />} />
             </Routes>
             <Footer />
         </Router>

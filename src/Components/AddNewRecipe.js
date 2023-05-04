@@ -6,10 +6,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function AddNewRecipe ({onAddRecipe}) {
+function AddNewRecipe ({onAddRecipe, setShowDeleted}) {
 
     useEffect( () => {
         document.title = "Recipe Stash | Add Recipe";
+        setShowDeleted(false)
     }, [])
 
     const navigate = useNavigate();

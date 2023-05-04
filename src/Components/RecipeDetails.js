@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-function RecipeDetails ({onDeleteClick}) {
+function RecipeDetails ({onDeleteClick, setShowDeleted}) {
 
     
 
@@ -21,7 +21,6 @@ function RecipeDetails ({onDeleteClick}) {
     const [made, setMade] = useState("");
     const [commentsArr, setCommentsArr] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [disabled, setDisabled] = useState(false);
 
 
     useEffect( () => {
@@ -31,6 +30,7 @@ function RecipeDetails ({onDeleteClick}) {
         setRecipe(data);
         setMade(data.madeCount);
         setCommentsArr(data.comments);
+        setShowDeleted(false);
         })
         .catch(() => alert("There's been an error loading your recipe information"));
     }, [params.id])
@@ -38,11 +38,11 @@ function RecipeDetails ({onDeleteClick}) {
     const madeCountDisplay = (
         <div className="d-flex justify-content-center align-items-center p-1 p-md-2 p-lg-3">
             {(made > 0) ? <span className="fs-5">Made {made} time{(made === 1) ? "" : "s"}:&nbsp;</span> : <span className="fs-5">Not made yet:&nbsp;</span> }
-            <Button size="sm"variant="outline-dark" onClick={handleIncreaseClick} className="m-1">+</Button><Button variant="outline-dark" size="sm" onClick={handleDecreaseClick} className="m-1">-</Button>
+            <Button variant="outline-dark"  disabled={made === 0 ? true : false} size="sm" onClick={handleDecreaseClick} className="m-1">-</Button><Button size="sm"variant="outline-dark" onClick={handleIncreaseClick} className="m-1">+</Button>
         </div>
     );
-    
 
+    
     function handleIncreaseClick () {
         setMade(made => made + 1)
         fetch(`http://localhost:6001/recipes/${params.id}`, {
@@ -58,12 +58,7 @@ function RecipeDetails ({onDeleteClick}) {
     }
 
    function handleDecreaseClick () {
-        if (made === 0) {
-            setDisabled(true);
-        } else {
-            setDisabled(false);
-            setMade(made => made - 1);
-        }
+        setMade(made => made - 1);
         fetch(`http://localhost:6001/recipes/${params.id}`, {
             method: "PATCH",
             headers: {
@@ -102,28 +97,36 @@ function RecipeDetails ({onDeleteClick}) {
         })
         .then(() => {
             onDeleteClick(recipe);
+            setShowDeleted(true);
             navigate("/recipes");
         })
         .catch(() => alert("Error: Could not process request"));
    }
 
-  
    
 
     return (
         <Container>
-            <div className="border rounded my-4 mx-2 mx-md-4 my-md-5 m-lg-5  details ">
+            <div className="border rounded my-4 mx-2 mx-md-4 my-md-5 m-lg-5  details position-relative">
                 <Row className=" d-flex justify-content-center align-items-center">
                     <Col sm={12} md={6} lg={5} >
                         <img src={recipe.image || recipePlaceholder} alt={recipe.name} style={{width: "95%", height: "45vh"}} className="m-2 m-md-4 m-lg-5 border rounded"/>
                     </Col>
-                    <Col sm={12} md={6} lg={7} className="d-flex align-items-center justify-content-center">
-                        <div className="p1 p-md-2">
-                            <h1 className="text-capitalize p-1 p-md-2">{recipe.name}</h1>
-                            <h4 className="p-1 p-md-2"><a href={recipe.url} target="_blank" rel="noreferrer" className="text-dark" >Go to Recipe</a></h4>
-                            {madeCountDisplay}
-                            <Button className="m-3 m-md-2" variant="outline-dark" onClick={handleDeleteRecipe} >Delete Recipe</Button>
-                        </div>
+                    <Col sm={12} md={6} lg={7} >
+                        <Row className="pb-md-4 pb-lg-5">
+                            <Col sm={12} md={12} lg={7} >
+                                <Button className="position-absolute top-0 end-0 m-2 m-md-4 m-lg-5" size="sm" variant="outline-danger" onClick={handleDeleteRecipe} >Delete Recipe</Button>
+                            </Col>
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                            <Col sm={12} md={12} lg={7} className="d-flex align-items-center justify-content-center">
+                                <div className="p-1 p-md-2">
+                                    <h1 className="text-capitalize p-1 p-md-2">{recipe.name}</h1>
+                                    <h4 className="p-1 p-md-2"><a href={recipe.url} target="_blank" rel="noreferrer" className="text-dark" >Go to Recipe</a></h4>
+                                    {madeCountDisplay}
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
                 <Row>
