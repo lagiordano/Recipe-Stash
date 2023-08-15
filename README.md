@@ -19,7 +19,7 @@ Run `npm start` to start the application and `json-server --watch db.json --port
 
 ## Contributing 
 
-Bug reports and pull requests are welcome at https://github.com/lagiordano/Recipe-Stash. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct]().
+Bug reports and pull requests are welcome at https://github.com/lagiordano/Recipe-Stash. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/lagiordano/Recipe-Stash/blob/main/CODE_OF_CONDUCT.md).
 
 
 ## License 
