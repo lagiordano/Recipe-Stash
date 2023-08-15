@@ -6,6 +6,8 @@ import recipePlaceholder from "../images/recipePlaceholder.jpeg";
 
 function RecipeItem ({name, image, id}) {
 
+   
+
     
     const imageStyles = {
         height: '25vh'
@@ -20,7 +22,7 @@ function RecipeItem ({name, image, id}) {
                 <Card className="h-100" id="recipe-card" >
                     <Card.Img variant="top" src={image || recipePlaceholder} alt={name} style={imageStyles} />
                     <Card.Body className="d-flex align-items-center justify-content-center">
-                        <Card.Title className="text-dark"> {name}</Card.Title>
+                        <Card.Title className="text-dark">{name}</Card.Title>
                     </Card.Body>
                 </Card>
             </Link>
